@@ -1,5 +1,5 @@
 import tensorflow as tf
-from utils.training_utils import TrainingSamples, TrainingGradients, TrainingLosses, LossesWeights
+from models.training.training_utils import TrainingSamples, TrainingGradients, TrainingLosses, LossesWeights
 
 
 class CycleGANTraining:
