@@ -86,7 +86,6 @@ class CycleGANTraining:
         return training_losses, gradient_tape
 
     @staticmethod
-    @tf.function
     def calculate_gradients(cycle_gan, training_losses, gradient_tape):
         generator_1_gradients = gradient_tape.gradient(training_losses.total_generator_1_loss,
                                                        cycle_gan.models.generator_1.trainable_variables)
@@ -105,7 +104,6 @@ class CycleGANTraining:
         return training_gradients
 
     @staticmethod
-    @tf.function
     def training_step(cycle_gan, training_gradients):
         generator_1_grads_and_vars = zip(training_gradients.generator_1_gradients,
                                          cycle_gan.models.generator_2.trainable_variables)
