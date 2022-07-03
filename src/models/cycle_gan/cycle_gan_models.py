@@ -1,6 +1,6 @@
 from dataclasses import dataclass
-from models.base_generator import BaseGenerator
-from models.base_discriminator import BaseDiscriminator
+from models.generators.base_generator import BaseGenerator
+from models.discriminators.base_discriminator import BaseDiscriminator
 
 
 @dataclass

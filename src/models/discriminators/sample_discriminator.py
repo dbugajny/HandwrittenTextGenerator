@@ -1,5 +1,5 @@
 import tensorflow as tf
-from models.discriminator.base_discriminator import BaseDiscriminator
+from models.discriminators.base_discriminator import BaseDiscriminator
 
 
 class SampleDiscriminator(BaseDiscriminator):

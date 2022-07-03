@@ -1,5 +1,5 @@
 import tensorflow as tf
-from models.generator.base_generator import BaseGenerator
+from models.generators.base_generator import BaseGenerator
 
 
 class SampleGenerator(BaseGenerator):
