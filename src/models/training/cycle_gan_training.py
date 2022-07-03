@@ -60,7 +60,6 @@ class CycleGANTraining:
             cycle_2_loss = cycle_gan.cycle_loss(training_samples.image_2, training_samples.cycled_image_2)
             cycle_1_loss *= loss_weights.cycle_loss_weight
             cycle_2_loss *= loss_weights.cycle_loss_weight
-
             total_cycle_loss = cycle_1_loss + cycle_2_loss
 
             total_generator_1_loss = generator_1_loss + total_cycle_loss + identity_1_loss
@@ -70,7 +69,6 @@ class CycleGANTraining:
                                                                               is_real=True)
             discriminator_1_fake_loss = cycle_gan.models.discriminator_1.loss(training_samples.fake_image_evaluation_1,
                                                                               is_real=False)
-
             discriminator_2_real_loss = cycle_gan.models.discriminator_2.loss(training_samples.real_image_evaluation_2,
                                                                               is_real=True)
             discriminator_2_fake_loss = cycle_gan.models.discriminator_2.loss(training_samples.fake_image_evaluation_2,
