@@ -2,7 +2,7 @@ import tensorflow as tf
 from models.generator.base_generator import BaseGenerator
 
 
-class BasicGenerator(BaseGenerator):
+class SampleGenerator(BaseGenerator):
     def __init__(self):
         super().__init__()
 

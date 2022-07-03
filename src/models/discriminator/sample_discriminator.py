@@ -2,7 +2,7 @@ import tensorflow as tf
 from models.discriminator.base_discriminator import BaseDiscriminator
 
 
-class BasicDiscriminator(BaseDiscriminator):
+class SampleDiscriminator(BaseDiscriminator):
     def __init__(self):
         super().__init__()
 

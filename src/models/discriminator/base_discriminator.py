@@ -1,7 +1,7 @@
 import tensorflow as tf
 
 
-class BaseDiscriminator(tf.keras.Models):
+class BaseDiscriminator(tf.keras.Model):
     loss_fun = tf.keras.losses.BinaryCrossentropy(from_logits=True)
 
     def loss(self, image_evaluation, is_real):
