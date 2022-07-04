@@ -1,5 +1,6 @@
 import tensorflow as tf
 from models.training.training_utils import TrainingSamples, TrainingGradients, TrainingLosses, LossesWeights
+from models.training.training_losses import generator_loss, identity_loss, discriminator_loss, cycle_loss
 
 
 class CycleGANTraining:
@@ -8,7 +9,7 @@ class CycleGANTraining:
 
     def train(self, cycle_gan, image_1, image_2, loss_weights):
         training_samples, gradient_tape = self.generate_samples(cycle_gan, image_1, image_2)
-        training_losses, gradient_tape = self.calculate_losses(cycle_gan, training_samples, gradient_tape, loss_weights)
+        training_losses, gradient_tape = self.calculate_losses(training_samples, gradient_tape, loss_weights)
         training_gradients = self.calculate_gradients(cycle_gan, training_losses, gradient_tape)
         self.training_step(cycle_gan, training_gradients)
 
@@ -42,22 +43,20 @@ class CycleGANTraining:
         return training_samples, gradient_tape
 
     @staticmethod
-    def calculate_losses(cycle_gan, training_samples, gradient_tape, loss_weights):
+    def calculate_losses(training_samples, gradient_tape, loss_weights):
         with gradient_tape:
-            generator_1_loss = cycle_gan.models.generator_1.loss(training_samples.fake_image_evaluation_2)
-            generator_2_loss = cycle_gan.models.generator_2.loss(training_samples.fake_image_evaluation_1)
+            generator_1_loss = generator_loss(training_samples.fake_image_evaluation_2)
+            generator_2_loss = generator_loss(training_samples.fake_image_evaluation_1)
             generator_1_loss *= loss_weights.generator_loss_weight
             generator_2_loss *= loss_weights.generator_loss_weight
 
-            identity_1_loss = cycle_gan.models.generator_1.identity_loss(training_samples.image_2,
-                                                                         training_samples.same_image_generated_2)
-            identity_2_loss = cycle_gan.models.generator_2.identity_loss(training_samples.image_1,
-                                                                         training_samples.same_image_generated_1)
+            identity_1_loss = identity_loss(training_samples.image_2, training_samples.same_image_generated_2)
+            identity_2_loss = identity_loss(training_samples.image_1, training_samples.same_image_generated_1)
             identity_1_loss *= loss_weights.identity_loss_weight
             identity_2_loss *= loss_weights.identity_loss_weight
 
-            cycle_1_loss = cycle_gan.cycle_loss(training_samples.image_1, training_samples.cycled_image_1)
-            cycle_2_loss = cycle_gan.cycle_loss(training_samples.image_2, training_samples.cycled_image_2)
+            cycle_1_loss = cycle_loss(training_samples.image_1, training_samples.cycled_image_1)
+            cycle_2_loss = cycle_loss(training_samples.image_2, training_samples.cycled_image_2)
             cycle_1_loss *= loss_weights.cycle_loss_weight
             cycle_2_loss *= loss_weights.cycle_loss_weight
             total_cycle_loss = cycle_1_loss + cycle_2_loss
@@ -65,14 +64,10 @@ class CycleGANTraining:
             total_generator_1_loss = generator_1_loss + total_cycle_loss + identity_1_loss
             total_generator_2_loss = generator_2_loss + total_cycle_loss + identity_2_loss
 
-            discriminator_1_real_loss = cycle_gan.models.discriminator_1.loss(training_samples.real_image_evaluation_1,
-                                                                              is_real=True)
-            discriminator_1_fake_loss = cycle_gan.models.discriminator_1.loss(training_samples.fake_image_evaluation_1,
-                                                                              is_real=False)
-            discriminator_2_real_loss = cycle_gan.models.discriminator_2.loss(training_samples.real_image_evaluation_2,
-                                                                              is_real=True)
-            discriminator_2_fake_loss = cycle_gan.models.discriminator_2.loss(training_samples.fake_image_evaluation_2,
-                                                                              is_real=False)
+            discriminator_1_real_loss = discriminator_loss(training_samples.real_image_evaluation_1, is_real=True)
+            discriminator_1_fake_loss = discriminator_loss(training_samples.fake_image_evaluation_1, is_real=False)
+            discriminator_2_real_loss = discriminator_loss(training_samples.real_image_evaluation_2, is_real=True)
+            discriminator_2_fake_loss = discriminator_loss(training_samples.fake_image_evaluation_2, is_real=False)
             discriminator_1_loss = discriminator_1_real_loss + discriminator_1_fake_loss
             discriminator_2_loss = discriminator_2_real_loss + discriminator_2_fake_loss
             discriminator_1_loss *= loss_weights.discriminator_loss_weight

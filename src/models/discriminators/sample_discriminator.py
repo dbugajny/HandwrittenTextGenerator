@@ -1,8 +1,7 @@
 import tensorflow as tf
-from models.discriminators.base_discriminator import BaseDiscriminator
 
 
-class SampleDiscriminator(BaseDiscriminator):
+class SampleDiscriminator(tf.keras.Model):
     def __init__(self):
         super().__init__()
 

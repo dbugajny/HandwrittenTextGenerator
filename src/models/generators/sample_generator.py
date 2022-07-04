@@ -1,8 +1,7 @@
 import tensorflow as tf
-from models.generators.base_generator import BaseGenerator
 
 
-class SampleGenerator(BaseGenerator):
+class SampleGenerator(tf.keras.Model):
     def __init__(self):
         super().__init__()
 
