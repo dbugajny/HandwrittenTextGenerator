@@ -1,13 +1,15 @@
 import tensorflow as tf
-from models.training.training_utils import TrainingSamples, TrainingGradients, TrainingLosses, LossesWeights
-from models.training.training_losses import generator_loss, identity_loss, discriminator_loss, cycle_loss
+from models.training.training_samples import TrainingSamples
+from models.training.training_gradients import TrainingGradients
+from models.training.training_losses import TrainingLosses
+from models.training.losses_functions import generator_loss, identity_loss, discriminator_loss, cycle_loss
 
 
 class CycleGANTraining:
     def __init__(self):
         pass
 
-    def train(self, cycle_gan, image_1, image_2, loss_weights):
+    def train_step(self, cycle_gan, image_1, image_2, loss_weights):
         training_samples, gradient_tape = self.generate_samples(cycle_gan, image_1, image_2)
         training_losses, gradient_tape = self.calculate_losses(training_samples, gradient_tape, loss_weights)
         training_gradients = self.calculate_gradients(cycle_gan, training_losses, gradient_tape)
