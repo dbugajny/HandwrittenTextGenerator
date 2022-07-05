@@ -3,7 +3,7 @@ import tensorflow as tf
 
 
 @dataclass
-class TrainingSamples:
+class Samples:
     image_1: tf.Tensor
     image_2: tf.Tensor
 

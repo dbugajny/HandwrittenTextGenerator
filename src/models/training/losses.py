@@ -3,7 +3,7 @@ import tensorflow as tf
 
 
 @dataclass
-class TrainingLosses:
+class Losses:
     total_generator_1_loss: tf.Tensor
     total_generator_2_loss: tf.Tensor
 

@@ -3,7 +3,7 @@ import tensorflow as tf
 
 
 @dataclass
-class TrainingGradients:
+class Gradients:
     generator_1_gradients: tf.Tensor
     generator_2_gradients: tf.Tensor
 
