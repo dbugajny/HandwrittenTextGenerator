@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 
 @dataclass
-class CycleGANOptimizers:
+class Optimizers:
     generator_1_optimizer: tf.keras.optimizers.Optimizer
     generator_2_optimizer: tf.keras.optimizers.Optimizer
     discriminator_1_optimizer: tf.keras.optimizers.Optimizer
