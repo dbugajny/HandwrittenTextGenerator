@@ -8,7 +8,7 @@ class UNet(tf.keras.Model):
         super().__init__()
 
         self.down_sample_blocks = [DownSampleBlock(filters, kernel_size, True) for _ in range(nr_blocks)]
-        self.up_sample_blocks = [UpSampleBlock(filters, kernel_size, True) for _ in range(nr_blocks - 1)]
+        self.up_sample_blocks = [UpSampleBlock(filters, kernel_size, True) for _ in range(nr_blocks)]
 
         self.out_layer = tf.keras.layers.Conv2D(3, kernel_size, padding="same", activation='tanh')
 
