@@ -3,13 +3,13 @@ import tensorflow as tf
 
 class CycleGANModel(tf.keras.Model):
     def __init__(self, architecture):
-        super(CycleGANModel, self).__init__()
+        super().__init__()
         self.architecture = architecture
         self.optimizers = None
         self.losses_functions = None
 
     def compile(self, optimizers, losses_functions):
-        super(CycleGANModel, self).compile()
+        super().compile()
         self.optimizers = optimizers
         self.losses_functions = losses_functions
 
@@ -81,3 +81,9 @@ class CycleGANModel(tf.keras.Model):
             "discriminator_1_loss": discriminator_1_loss,
             "discriminator_2_loss": discriminator_2_loss,
         }
+
+    def get_config(self):
+        base_config = super().get_config()
+
+        return {**base_config, "architecture": self.architecture, "optimizers": self.optimizers,
+                "losses_functions": self.losses_functions, "batch": self.batch_norm}
