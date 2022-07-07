@@ -13,6 +13,7 @@ class CycleGANModel(tf.keras.Model):
         self.optimizers = optimizers
         self.losses_functions = losses_functions
 
+    @tf.function
     def train_step(self, image_data):
         image_1, image_2 = image_data
 
@@ -61,7 +62,7 @@ class CycleGANModel(tf.keras.Model):
                                                            self.architecture.discriminator_2.trainable_variables)
 
         generator_1_grads_and_vars = zip(generator_1_gradients,
-                                         self.architecture.generator_2.trainable_variables)
+                                         self.architecture.generator_1.trainable_variables)
         generator_2_grads_and_vars = zip(generator_2_gradients,
                                          self.architecture.generator_2.trainable_variables)
         discriminator_1_grads_and_vars = zip(discriminator_1_gradients,
