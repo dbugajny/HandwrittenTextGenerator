@@ -22,8 +22,8 @@ class UNet(tf.keras.Model):
             skips.append(x)
 
         for i in reversed(range(len(self.up_sample_blocks))):
-            x = self.up_sample_blocks[i](x)
             x = self.concat([x, skips[i]])
+            x = self.up_sample_blocks[i](x)
 
         x = self.out_layer(x)
         return x
