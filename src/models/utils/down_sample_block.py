@@ -1,7 +1,7 @@
 import tensorflow as tf
 
 
-class DownSampleBlock(tf.keras.Layer):
+class DownSampleBlock(tf.keras.layers.Layer):
     def __init__(self, filters, kernel_size, batch_norm):
         super().__init__()
         self.filters = filters
@@ -16,7 +16,6 @@ class DownSampleBlock(tf.keras.Layer):
         x = self.conv(inputs)
         if self.batch_norm:
             x = self.normalization(x)
-        x = self.dropout(x)
         x = self.activation(x)
         return x
 

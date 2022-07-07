@@ -1,7 +1,7 @@
 import tensorflow as tf
 
 
-class UpSampleBlock(tf.keras.Layer):
+class UpSampleBlock(tf.keras.layers.Layer):
     def __init__(self, filters, kernel_size, batch_norm):
         super().__init__()
         self.filters = filters
