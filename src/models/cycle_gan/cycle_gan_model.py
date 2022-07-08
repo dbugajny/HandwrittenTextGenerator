@@ -13,7 +13,6 @@ class CycleGANModel(tf.keras.Model):
         self.optimizers = optimizers
         self.losses_functions = losses_functions
 
-    @tf.function
     def train_step(self, image_data):
         image_1, image_2 = image_data
 
@@ -82,8 +81,3 @@ class CycleGANModel(tf.keras.Model):
             "discriminator_2_loss": discriminator_2_loss,
         }
 
-    def get_config(self):
-        base_config = super().get_config()
-
-        return {**base_config, "architecture": self.architecture, "optimizers": self.optimizers,
-                "losses_functions": self.losses_functions, "batch": self.batch_norm}
