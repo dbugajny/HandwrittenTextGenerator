@@ -1,6 +1,7 @@
 import tensorflow as tf
 from dataclasses import dataclass
 import numpy as np
+from pathlib import Path
 
 
 @dataclass
@@ -12,6 +13,7 @@ class Optimizers:
 
 
 def load_optimizers_weights(model_path, optimizers, architecture):
+    model_path = Path(model_path)
     generator_1_optimizer_weights = np.load(model_path / "optimizers_weights" / "generator_1.npy", allow_pickle=True)
     generator_2_optimizer_weights = np.load(model_path / "optimizers_weights" / "generator_2.npy", allow_pickle=True)
     discriminator_1_optimizer_weights = np.load(model_path / "optimizers_weights" / "discriminator_1.npy",
@@ -40,6 +42,9 @@ def load_optimizers_weights(model_path, optimizers, architecture):
 
 
 def save_optimizer_weights(model_path, optimizers):
+    model_path = Path(model_path)
+    model_path.mkdir(exist_ok=True)
+
     np.save(model_path / "optimizers_weights" / "generator_1.npy", optimizers.generator_1_optimizer.get_weights())
     np.save(model_path / "optimizers_weights" / "generator_2.npy", optimizers.generator_2_optimizer.get_weights())
     np.save(model_path / "optimizers_weights" / "discriminator_1.npy",

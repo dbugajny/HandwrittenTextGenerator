@@ -4,13 +4,15 @@ import tensorflow as tf
 
 
 class UNet(tf.keras.Model):
-    def __init__(self, nr_blocks, filters, kernel_size):
+    def __init__(self, filters_list, kernel_size_list):
         super().__init__()
 
-        self.down_sample_blocks = [DownSampleBlock(filters, kernel_size, True) for _ in range(nr_blocks)]
-        self.up_sample_blocks = [UpSampleBlock(filters, kernel_size, True) for _ in range(nr_blocks)]
+        self.down_sample_blocks = [DownSampleBlock(filters, kernel_size, True) for filters, kernel_size in
+                                   zip(filters_list, kernel_size_list)]
+        self.up_sample_blocks = [UpSampleBlock(filters, kernel_size, True) for filters, kernel_size in
+                                 zip(filters_list, kernel_size_list)]
 
-        self.out_layer = tf.keras.layers.Conv2D(3, kernel_size, padding="same", activation='tanh')
+        self.out_layer = tf.keras.layers.Conv2D(3, 1, padding="same", activation='tanh')
 
         self.concat = tf.keras.layers.Concatenate()
 
