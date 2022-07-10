@@ -15,7 +15,7 @@ class BetterDiscriminator(tf.keras.Model):
 
     def call(self, inputs):
         x = inputs
-        for i in range(len(self.up_sample_blocks)):
+        for i in range(len(self.down_sample_blocks)):
             x = self.down_sample_blocks[i](x)
 
         x = self.conv_1(x)
