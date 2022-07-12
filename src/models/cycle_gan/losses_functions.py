@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import Callable
 import tensorflow as tf
 
+
 @dataclass
 class LossesFunctions:
     generator_loss: Callable

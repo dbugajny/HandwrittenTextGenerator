@@ -1,5 +1,5 @@
-from models.utils.down_sample_block import DownSampleBlock
-from models.utils.up_sample_block import UpSampleBlock
+from models.blocks.down_sample_block import DownSampleBlock
+from models.blocks.up_sample_block import UpSampleBlock
 import tensorflow as tf
 
 

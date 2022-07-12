@@ -1,5 +1,5 @@
 import tensorflow as tf
-from models.utils.down_sample_block import DownSampleBlock
+from models.blocks.down_sample_block import DownSampleBlock
 
 
 class BetterDiscriminator(tf.keras.Model):
