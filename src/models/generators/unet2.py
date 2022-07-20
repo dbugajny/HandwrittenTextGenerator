@@ -30,32 +30,35 @@ class UNet2(tf.keras.Model):
         self.conv_block_5 = ConvBlock(512, 256)
         self.conv_block_6 = ConvBlock(256, 128)
         self.conv_block_7 = ConvBlock(128, 64)
-        self.conv_block_out = ConvBlock(64, 3)
+        self.conv_out = tf.keras.layers.Conv2D(filters=3, kernel_size=(3, 3), padding="same", activation="tanh")
 
-        self.max_pooling_1 = tf.keras.layers.MaxPooling2D(padding="same")
-        self.max_pooling_2 = tf.keras.layers.MaxPooling2D(padding="same")
-        self.max_pooling_3 = tf.keras.layers.MaxPooling2D(padding="same")
+        self.conv_down_sampling_1 = tf.keras.layers.Conv2D(filters=64, kernel_size=(1, 1), strides=2, padding="same")
+        self.conv_down_sampling_2 = tf.keras.layers.Conv2D(filters=128, kernel_size=(1, 1), strides=2, padding="same")
+        self.conv_down_sampling_3 = tf.keras.layers.Conv2D(filters=512, kernel_size=(1, 1), strides=2, padding="same")
 
-        self.up_sampling_1 = tf.keras.layers.UpSampling2D()
-        self.up_sampling_2 = tf.keras.layers.UpSampling2D()
-        self.up_sampling_3 = tf.keras.layers.UpSampling2D()
+        self.conv_up_sampling_1 = tf.keras.layers.Conv2DTranspose(filters=512, kernel_size=(1, 1), strides=2,
+                                                                  padding='same')
+        self.conv_up_sampling_2 = tf.keras.layers.Conv2DTranspose(filters=256, kernel_size=(1, 1), strides=2,
+                                                                  padding='same')
+        self.conv_up_sampling_3 = tf.keras.layers.Conv2DTranspose(filters=128, kernel_size=(1, 1), strides=2,
+                                                                  padding='same')
 
     def call(self, inputs):
         x_1 = self.conv_block_1(inputs)
-        x_2 = self.max_pooling_1(x_1)
+        x_2 = self.conv_down_sampling_1(x_1)
         x_2 = self.conv_block_2(x_2)
-        x_3 = self.max_pooling_2(x_2)
+        x_3 = self.conv_down_sampling_2(x_2)
         x_3 = self.conv_block_3(x_3)
-        x = self.max_pooling_2(x_3)
+        x = self.conv_down_sampling_3(x_3)
         x = self.conv_block_4(x)
-        x = self.up_sampling_1(x)
+        x = self.conv_up_sampling_1(x)
 
         x = self.conv_block_5(tf.keras.layers.Concatenate()([x, x_3]))
-        x = self.up_sampling_2(x)
+        x = self.conv_up_sampling_2(x)
         x = self.conv_block_6(tf.keras.layers.Concatenate()([x, x_2]))
-        x = self.up_sampling_3(x)
+        x = self.conv_up_sampling_3(x)
         x = self.conv_block_7(x)
-        x = self.conv_block_out(x)
+        x = self.conv_out(x)
 
         return x
 
