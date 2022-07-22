@@ -26,7 +26,7 @@ class Disc2(tf.keras.Model):
         self.conv_block_1 = ConvBlock2(512, 512)
         self.conv_block_2 = ConvBlock2(256, 256)
         self.conv_block_3 = ConvBlock2(128, 128)
-        self.conv_block_1 = ConvBlock2(64, 64)
+        self.conv_block_4 = ConvBlock2(64, 64)
 
         self.conv_down_sampling_1 = tf.keras.layers.Conv2D(filters=256, kernel_size=(1, 1), strides=2, padding="same")
         self.conv_down_sampling_2 = tf.keras.layers.Conv2D(filters=128, kernel_size=(1, 1), strides=2, padding="same")
