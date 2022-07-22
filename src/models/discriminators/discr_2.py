@@ -42,7 +42,7 @@ class Disc2(tf.keras.Model):
         x = self.conv_down_sampling_1(x)
         x = self.conv_block_2(x)
         x = self.conv_down_sampling_2(x)
-        x = self.conv_block_3(x)git
+        x = self.conv_block_3(x)
         x = self.conv_down_sampling_3(x)
         x = self.conv_additional(x)
         x = self.normalization(x)
