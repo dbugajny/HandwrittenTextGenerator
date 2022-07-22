@@ -23,18 +23,18 @@ class ConvBlock(tf.keras.layers.Layer):
 class UNet2(tf.keras.Model):
     def __init__(self):
         super().__init__()
-        self.conv_block_1 = ConvBlock(64, 64)
-        self.conv_block_2 = ConvBlock(128, 128)
-        self.conv_block_3 = ConvBlock(256, 256)
-        self.conv_block_4 = ConvBlock(512, 512)
-        self.conv_block_5 = ConvBlock(512, 256)
-        self.conv_block_6 = ConvBlock(256, 128)
-        self.conv_block_7 = ConvBlock(128, 64)
+        self.conv_block_1 = ConvBlock(32, 32)
+        self.conv_block_2 = ConvBlock(64, 64)
+        self.conv_block_3 = ConvBlock(128, 128)
+        self.conv_block_4 = ConvBlock(256, 256)
+        self.conv_block_5 = ConvBlock(256, 128)
+        self.conv_block_6 = ConvBlock(128, 64)
+        self.conv_block_7 = ConvBlock(64, 32)
         self.conv_out = tf.keras.layers.Conv2D(filters=3, kernel_size=(3, 3), padding="same", activation="tanh")
 
-        self.conv_down_sampling_1 = tf.keras.layers.Conv2D(filters=64, kernel_size=(1, 1), strides=2, padding="same")
-        self.conv_down_sampling_2 = tf.keras.layers.Conv2D(filters=128, kernel_size=(1, 1), strides=2, padding="same")
-        self.conv_down_sampling_3 = tf.keras.layers.Conv2D(filters=512, kernel_size=(1, 1), strides=2, padding="same")
+        self.conv_down_sampling_1 = tf.keras.layers.Conv2D(filters=32, kernel_size=(1, 1), strides=2, padding="same")
+        self.conv_down_sampling_2 = tf.keras.layers.Conv2D(filters=64, kernel_size=(1, 1), strides=2, padding="same")
+        self.conv_down_sampling_3 = tf.keras.layers.Conv2D(filters=256, kernel_size=(1, 1), strides=2, padding="same")
 
         self.conv_up_sampling_1 = tf.keras.layers.Conv2DTranspose(filters=512, kernel_size=(1, 1), strides=2,
                                                                   padding='same')
