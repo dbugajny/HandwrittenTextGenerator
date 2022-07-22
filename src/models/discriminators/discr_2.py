@@ -38,7 +38,7 @@ class Disc2(tf.keras.Model):
 
         self.normalization = tf.keras.layers.BatchNormalization()
         self.activation = tf.keras.layers.LeakyReLU()
-cd
+
     def call(self, inputs):
         x = self.conv_block_1(inputs)
         x = self.conv_down_sampling_1(x)
