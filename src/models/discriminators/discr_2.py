@@ -23,17 +23,15 @@ class ConvBlock2(tf.keras.layers.Layer):
 class Disc2(tf.keras.Model):
     def __init__(self):
         super().__init__()
-        self.conv_block_1 = ConvBlock2(512, 512)
-        self.conv_block_2 = ConvBlock2(256, 256)
+        self.conv_block_1 = ConvBlock2(256, 256)
+        self.conv_block_2 = ConvBlock2(512, 512)
         self.conv_block_3 = ConvBlock2(128, 128)
         self.conv_block_4 = ConvBlock2(64, 64)
-        self.conv_block_5 = ConvBlock2(32, 32)
 
         self.conv_down_sampling_1 = tf.keras.layers.Conv2D(filters=256, kernel_size=(1, 1), strides=2, padding="same")
         self.conv_down_sampling_2 = tf.keras.layers.Conv2D(filters=128, kernel_size=(1, 1), strides=2, padding="same")
         self.conv_down_sampling_3 = tf.keras.layers.Conv2D(filters=64, kernel_size=(1, 1), strides=2, padding="same")
         self.conv_down_sampling_4 = tf.keras.layers.Conv2D(filters=32, kernel_size=(1, 1), strides=2, padding="same")
-        self.conv_down_sampling_5 = tf.keras.layers.Conv2D(filters=32, kernel_size=(1, 1), strides=2, padding="same")
 
         self.conv_additional = tf.keras.layers.Conv2D(filters=32, kernel_size=(3, 3), padding="same")
         self.conv_out = tf.keras.layers.Conv2D(filters=1, kernel_size=(1, 1), padding="same")
@@ -50,8 +48,6 @@ class Disc2(tf.keras.Model):
         x = self.conv_down_sampling_3(x)
         x = self.conv_block_4(x)
         x = self.conv_down_sampling_4(x)
-        x = self.conv_block_5(x)
-        x = self.conv_down_sampling_5(x)
         x = self.conv_additional(x)
         x = self.normalization(x)
         x = self.conv_out(x)
