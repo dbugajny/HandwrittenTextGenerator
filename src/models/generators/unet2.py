@@ -26,7 +26,7 @@ class UNet2(tf.keras.Model):
         self.conv_block_1 = ConvBlock(32, 32)
         self.conv_block_2 = ConvBlock(64, 64)
         self.conv_block_3 = ConvBlock(128, 128)
-        self.conv_block_4 = ConvBlock(256, 256)
+        self.conv_block_4 = ConvBlock(128, 128)
         self.conv_block_5 = ConvBlock(256, 128)
         self.conv_block_6 = ConvBlock(128, 64)
         self.conv_block_7 = ConvBlock(64, 32)
