@@ -20,7 +20,7 @@ class ConvBlock2(tf.keras.layers.Layer):
         return x
 
 
-class Disc2(tf.keras.Model):
+class Discriminator(tf.keras.Model):
     def __init__(self):
         super().__init__()
         self.conv_block_1 = ConvBlock2(256, 256)

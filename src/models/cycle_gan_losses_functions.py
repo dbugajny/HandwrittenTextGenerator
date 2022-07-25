@@ -4,7 +4,7 @@ import tensorflow as tf
 
 
 @dataclass
-class LossesFunctions:
+class CycleGANLossesFunctions:
     generator_loss: Callable
     discriminator_loss: Callable
     cycle_loss: Callable

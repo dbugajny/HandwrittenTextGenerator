@@ -20,7 +20,7 @@ class ConvBlock(tf.keras.layers.Layer):
         return x
 
 
-class UNet2(tf.keras.Model):
+class Generator(tf.keras.Model):
     def __init__(self):
         super().__init__()
         self.conv_block_1 = ConvBlock(128, 128)

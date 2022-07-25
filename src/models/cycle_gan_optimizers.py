@@ -5,14 +5,14 @@ from pathlib import Path
 
 
 @dataclass
-class Optimizers:
+class CycleGANOptimizers:
     generator_1_optimizer: tf.keras.optimizers.Optimizer
     generator_2_optimizer: tf.keras.optimizers.Optimizer
     discriminator_1_optimizer: tf.keras.optimizers.Optimizer
     discriminator_2_optimizer: tf.keras.optimizers.Optimizer
 
 
-def load_optimizers_weights(model_path, optimizers, architecture):
+def load_model_optimizers_weights(model_path, optimizers, architecture):
     model_path = Path(model_path)
     generator_1_optimizer_weights = np.load(model_path / "optimizers_weights" / "generator_1.npy", allow_pickle=True)
     generator_2_optimizer_weights = np.load(model_path / "optimizers_weights" / "generator_2.npy", allow_pickle=True)
@@ -41,7 +41,7 @@ def load_optimizers_weights(model_path, optimizers, architecture):
     optimizers.discriminator_2_optimizer.set_weights(discriminator_2_optimizer_weights)
 
 
-def save_optimizer_weights(model_path, optimizers):
+def save_model_optimizer_weights(model_path, optimizers):
     model_path = Path(model_path)
     model_path.mkdir(exist_ok=True)
 

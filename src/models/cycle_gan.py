@@ -1,7 +1,7 @@
 import tensorflow as tf
 
 
-class CycleGANModel(tf.keras.Model):
+class CycleGAN(tf.keras.Model):
     def __init__(self, architecture):
         super().__init__()
         self.architecture = architecture
@@ -13,6 +13,7 @@ class CycleGANModel(tf.keras.Model):
         self.optimizers = optimizers
         self.losses_functions = losses_functions
 
+    @tf.function
     def train_step(self, image_data):
         image_1, image_2 = image_data
 
