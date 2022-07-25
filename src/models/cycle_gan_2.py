@@ -3,17 +3,14 @@ import tensorflow as tf
 
 class CycleGAN(tf.keras.Model):
     def __init__(self, architecture):
-        super().__init__()
         self.architecture = architecture
         self.optimizers = None
         self.losses_functions = None
 
     def compile(self, optimizers, losses_functions):
-        super().compile()
         self.optimizers = optimizers
         self.losses_functions = losses_functions
 
-    @tf.function
     def train_step(self, image_data):
         image_1, image_2 = image_data
 
@@ -80,10 +77,3 @@ class CycleGAN(tf.keras.Model):
         self.optimizers.generator_2_optimizer.apply_gradients(generator_2_grads_and_vars)
         self.optimizers.discriminator_1_optimizer.apply_gradients(discriminator_1_grads_and_vars)
         self.optimizers.discriminator_2_optimizer.apply_gradients(discriminator_2_grads_and_vars)
-
-        return {
-            "total_generator_1_loss": total_generator_1_loss,
-            "total_generator_2_loss": total_generator_2_loss,
-            "discriminator_1_loss": discriminator_1_loss,
-            "discriminator_2_loss": discriminator_2_loss,
-        }

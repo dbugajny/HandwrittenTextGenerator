@@ -36,12 +36,15 @@ class Generator(tf.keras.Model):
         self.conv_down_sampling_2 = tf.keras.layers.Conv2D(filters=256, kernel_size=(1, 1), strides=2, padding="same")
         self.conv_down_sampling_3 = tf.keras.layers.Conv2D(filters=512, kernel_size=(1, 1), strides=2, padding="same")
 
-        self.conv_up_sampling_1 = tf.keras.layers.Conv2DTranspose(filters=512, kernel_size=(1, 1), strides=2,
-                                                                  padding='same')
-        self.conv_up_sampling_2 = tf.keras.layers.Conv2DTranspose(filters=256, kernel_size=(1, 1), strides=2,
-                                                                  padding='same')
-        self.conv_up_sampling_3 = tf.keras.layers.Conv2DTranspose(filters=128, kernel_size=(1, 1), strides=2,
-                                                                  padding='same')
+        self.conv_up_sampling_1 = tf.keras.layers.Conv2DTranspose(
+            filters=512, kernel_size=(1, 1), strides=2, padding="same"
+        )
+        self.conv_up_sampling_2 = tf.keras.layers.Conv2DTranspose(
+            filters=256, kernel_size=(1, 1), strides=2, padding="same"
+        )
+        self.conv_up_sampling_3 = tf.keras.layers.Conv2DTranspose(
+            filters=128, kernel_size=(1, 1), strides=2, padding="same"
+        )
 
     def call(self, inputs):
         x_1 = self.conv_block_1(inputs)

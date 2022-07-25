@@ -1,6 +1,7 @@
 from dataclasses import dataclass
-import tensorflow as tf
 from pathlib import Path
+
+import tensorflow as tf
 
 
 @dataclass
@@ -11,7 +12,7 @@ class CycleGANArchitecture:
     discriminator_2: tf.keras.Model
 
 
-def load_model_architecture(model_path):
+def load_cycle_gan_architecture(model_path):
     generator_1 = tf.keras.models.load_model(Path(model_path) / "architecture" / "generator_1")
     generator_2 = tf.keras.models.load_model(Path(model_path) / "architecture" / "generator_2")
     discriminator_1 = tf.keras.models.load_model(Path(model_path) / "architecture" / "discriminator_1")
@@ -20,7 +21,7 @@ def load_model_architecture(model_path):
     return CycleGANArchitecture(generator_1, generator_2, discriminator_1, discriminator_2)
 
 
-def save_model_architecture(model_path, architecture):
+def save_cycle_gan_architecture(model_path, architecture):
     architecture.generator_1.save(Path(model_path) / "architecture" / "generator_1")
     architecture.generator_2.save(Path(model_path) / "architecture" / "generator_2")
     architecture.discriminator_1.save(Path(model_path) / "architecture" / "discriminator_1")

@@ -1,14 +1,15 @@
 from dataclasses import dataclass
 from typing import Callable
+
 import tensorflow as tf
 
 
 @dataclass
 class CycleGANLossesFunctions:
-    generator_loss: Callable
-    discriminator_loss: Callable
-    cycle_loss: Callable
-    identity_loss: Callable
+    generator_loss_function: Callable
+    discriminator_loss_function: Callable
+    cycle_loss_function: Callable
+    identity_loss_function: Callable
 
 
 def cycle_loss(loss_f, weight=1):
