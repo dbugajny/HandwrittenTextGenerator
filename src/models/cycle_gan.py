@@ -33,23 +33,23 @@ class CycleGAN(tf.keras.Model):
             fake_image_evaluation_1 = self.architecture.discriminator_1(fake_image_1, training=True)
             fake_image_evaluation_2 = self.architecture.discriminator_2(fake_image_2, training=True)
 
-            generator_1_loss = self.losses_functions.generator_loss(fake_image_evaluation_2)
-            generator_2_loss = self.losses_functions.generator_loss(fake_image_evaluation_1)
+            generator_1_loss = self.losses_functions.generator_loss_function(fake_image_evaluation_2)
+            generator_2_loss = self.losses_functions.generator_loss_function(fake_image_evaluation_1)
 
-            identity_1_loss = self.losses_functions.identity_loss(image_2, same_image_generated_2)
-            identity_2_loss = self.losses_functions.identity_loss(image_1, same_image_generated_1)
+            identity_1_loss = self.losses_functions.identity_loss_function(image_2, same_image_generated_2)
+            identity_2_loss = self.losses_functions.identity_loss_function(image_1, same_image_generated_1)
 
-            cycle_1_loss = self.losses_functions.cycle_loss(image_1, cycled_image_1)
-            cycle_2_loss = self.losses_functions.cycle_loss(image_2, cycled_image_2)
+            cycle_1_loss = self.losses_functions.cycle_loss_function(image_1, cycled_image_1)
+            cycle_2_loss = self.losses_functions.cycle_loss_function(image_2, cycled_image_2)
             total_cycle_loss = cycle_1_loss + cycle_2_loss
 
             total_generator_1_loss = generator_1_loss + total_cycle_loss + identity_1_loss
             total_generator_2_loss = generator_2_loss + total_cycle_loss + identity_2_loss
 
-            discriminator_1_loss = self.losses_functions.discriminator_loss(
+            discriminator_1_loss = self.losses_functions.discriminator_loss_function(
                 real_image_evaluation_1, fake_image_evaluation_1
             )
-            discriminator_2_loss = self.losses_functions.discriminator_loss(
+            discriminator_2_loss = self.losses_functions.discriminator_loss_function(
                 real_image_evaluation_2, fake_image_evaluation_2
             )
 
