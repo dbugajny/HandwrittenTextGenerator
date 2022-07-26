@@ -49,22 +49,22 @@ def load_cycle_gan_optimizers_weights(model_path, optimizers, architecture):
 
 
 def save_cycle_gan_optimizer_weights(model_path, cycle_gan_optimizers):
-    model_path = Path(model_path)
-    model_path.mkdir(exist_ok=True)
+    optimizers_weights_path = Path(model_path) / "optimizers_weights"
+    optimizers_weights_path.mkdir(exist_ok=True)
 
     np.save(
-        model_path / "optimizers_weights" / "generator_1.npy",
+        optimizers_weights_path / "generator_1.npy",
         cycle_gan_optimizers.generator_1_optimizer.get_weights()
     )
     np.save(
-        model_path / "optimizers_weights" / "generator_2.npy",
+        optimizers_weights_path / "generator_2.npy",
         cycle_gan_optimizers.generator_2_optimizer.get_weights()
     )
     np.save(
-        model_path / "optimizers_weights" / "discriminator_1.npy",
+        optimizers_weights_path / "discriminator_1.npy",
         cycle_gan_optimizers.discriminator_1_optimizer.get_weights()
     )
     np.save(
-        model_path / "optimizers_weights" / "discriminator_2.npy",
+        optimizers_weights_path / "discriminator_2.npy",
         cycle_gan_optimizers.discriminator_2_optimizer.get_weights()
     )
