@@ -19,9 +19,9 @@ class CycleGAN(tf.keras.Model):
 
         with tf.GradientTape(persistent=True) as gradient_tape:
             fake_image_2 = self.architecture.generator_1(image_1, training=True)
-            cycled_image_1 = self.architecture.generator_2(fake_image_2, training=True)
-
             fake_image_1 = self.architecture.generator_2(image_2, training=True)
+
+            cycled_image_1 = self.architecture.generator_2(fake_image_2, training=True)
             cycled_image_2 = self.architecture.generator_1(fake_image_1, training=True)
 
             same_image_generated_1 = self.architecture.generator_2(image_1, training=True)
@@ -39,12 +39,12 @@ class CycleGAN(tf.keras.Model):
             identity_1_loss = self.losses_functions.identity_loss_function(image_2, same_image_generated_2)
             identity_2_loss = self.losses_functions.identity_loss_function(image_1, same_image_generated_1)
 
-            cycle_1_loss = self.losses_functions.cycle_loss_function(image_1, cycled_image_1)
-            cycle_2_loss = self.losses_functions.cycle_loss_function(image_2, cycled_image_2)
+            cycle_1_loss = self.losses_functions.cycle_loss_function(image_2, cycled_image_2)
+            cycle_2_loss = self.losses_functions.cycle_loss_function(image_1, cycled_image_1)
             total_cycle_loss = cycle_1_loss + cycle_2_loss
 
-            total_generator_1_loss = generator_1_loss + total_cycle_loss + identity_1_loss
-            total_generator_2_loss = generator_2_loss + total_cycle_loss + identity_2_loss
+            total_generator_1_loss = generator_1_loss + cycle_1_loss + identity_1_loss
+            total_generator_2_loss = generator_2_loss + cycle_2_loss + identity_2_loss
 
             discriminator_1_loss = self.losses_functions.discriminator_loss_function(
                 real_image_evaluation_1, fake_image_evaluation_1
